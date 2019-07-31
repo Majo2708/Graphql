@@ -1,0 +1,62 @@
+directive @auth on FIELD_DEFINITION | FIELD
+
+type Query{
+    saludo(name:String!):String!,
+    getAllPosts:[Post],
+    getPost(data:ID):Post
+    getUsers:[User] @auth
+}
+
+type Mutation{
+    createPost(data:inputPost):Post
+    createUser(data:inputUser):User
+    login(data: inputLogin!):Auth
+}
+
+#id es el id que da mongoose
+type Post{
+    id: ID
+    title: String!
+    body: String!
+    createdAt: String!
+    comments: [comments]
+    user: User!
+}
+
+input inputPost{
+    title: String!,
+    body: String!,
+    createdAt: String!,
+    comments: [inputcomments]
+    user: ID
+}
+
+type comments{
+    name: String
+}
+
+input inputcomments{
+    name: String
+}
+
+type User{
+    id:ID,
+    name:String!
+    email:String!
+}
+
+input inputUser{
+    name:String!
+    email:String!
+    password:String!
+}
+
+type Auth{
+    token:String!
+    message:String!
+}
+
+input inputLogin{
+    email:String!
+    password:String!
+}
