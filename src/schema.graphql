@@ -10,7 +10,7 @@ type Query{
 type Mutation{
     createPost(data:inputPost):Post
     createUser(data:inputUser):User
-    login(data: inputLogin!):Auth
+    login(data:inputLogin!):Auth
 }
 
 #id es el id que da mongoose

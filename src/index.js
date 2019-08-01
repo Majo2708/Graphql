@@ -15,8 +15,6 @@ mongoose.connect(process.env.MONGOURL, {useNewUrlParser: true}, (err)=>{
     }
 });
 
-const Post = require('./models/Post');
-
 const { getAllPosts, getPost, getUsers } = require('./resolvers/Querys');
 const { createPost, createUser, login } = require('./resolvers/Mutations');
 
@@ -37,11 +35,11 @@ const resolvers = {
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
-  schemaDirectives: {
-    auth: AuthDirective
+  schemaDirectives:{
+    auth:AuthDirective
   }
 })
 
 
-const server = new GraphQLServer({ schema, context: async({ request }) => verifyToken(request) })
+const server = new GraphQLServer({ schema, context: async({ request })=>verifyToken(request) })
 server.start(() => console.log('Server is running on localhost:4000'))

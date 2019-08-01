@@ -6,14 +6,15 @@ const verifyToken = async(req) => {
     if(!Authorization){
         return req;
     }else{
-        const formToken = Authorization.replace('JWT ', "");
+        const formToken = Authorization.replace('JWT ', '');
         const payload = jwt.verify(formToken, process.env.SECRET_KEY);
         if(!payload){
             return req
         }
-        const user = await User.findOne({_id:payload._id});
+        const user = await User.findOne({_id:payload.id});
         return {...req, user}
     }
+    return req;
 }
 
 module.exports = verifyToken;
