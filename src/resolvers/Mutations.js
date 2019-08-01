@@ -1,6 +1,7 @@
 const Post = require('../models/Post');
 const User = require('../models/User');
 const authenticated = require('../utils/authenticated');
+const storage = require('../utils/storage');
 
 const createPost = async (root, args)=>{ // async es para qye espere a que se ejecute el await
     /*let newPost = new Post({
@@ -41,9 +42,23 @@ const login =async(root, args) => {
 
 }
 
+const addPhoto = async(root, args) => {
+    console.log(args);
+    if(args.photo){
+        const {createReadStream} = await args.photo;
+        const stream = createReadStream();
+        console.log('Stream ==>> ', stream);
+        const url = await storage({stream});
+        console.log(url);
+
+        return url.url;
+    }
+}
+
 
 module.exports = {
     createPost,
     createUser,
-    login
+    login,
+    addPhoto
 };

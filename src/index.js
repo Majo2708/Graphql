@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGOURL, {useNewUrlParser: true}, (err)=>{
 });
 
 const { getAllPosts, getPost, getUsers } = require('./resolvers/Querys');
-const { createPost, createUser, login } = require('./resolvers/Mutations');
+const { createPost, createUser, login, addPhoto } = require('./resolvers/Mutations');
 
 const resolvers = {
     Query: {
@@ -28,7 +28,8 @@ const resolvers = {
     Mutation: {
         createPost,
         createUser,
-        login
+        login,
+        addPhoto
     }
 }
   
